@@ -56,6 +56,18 @@ app.route('/articles')
     });
   })
 
+app.route('/articles/:title')
+  .get((req, res) => {
+    const title = req.params.title;
+    Article.findOne({title}, (err, result) => {
+      if(!err) {
+        res.send(result)
+      } else {
+        res.send(err);
+      }
+    });
+  })
+
 let port = process.env.PORT;
 if (port == null || port == '') {
   port = 3001;
