@@ -45,6 +45,16 @@ app.post("/articles", (req, res) => {
   });
 })
 
+app.delete("/articles", (req, res) => {
+  Article.deleteMany(err =>{
+    if (!err) {
+      res.send("Successfully delete all articles");
+    } else {
+      res.send(err);
+    }
+  })
+})
+
 let port = process.env.PORT;
 if (port == null || port == '') {
   port = 3001;
