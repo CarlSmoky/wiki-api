@@ -68,6 +68,20 @@ app.route('/articles/:title')
     });
   })
 
+  .put((req, res) => {
+    Article.updateOne(
+      {title: req.params.title},
+      {title: req.body.title, content: req.body.content},
+      (err) => {
+        if(!err) {
+          res.send("Succesfully updated")
+        } else {
+          res.send(err);
+        }
+      }
+    )
+  })
+
 let port = process.env.PORT;
 if (port == null || port == '') {
   port = 3001;
