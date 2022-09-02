@@ -78,6 +78,19 @@ app.route('/articles/:title')
         } else {
           res.send(err);
         }
+      });
+  })
+
+  .patch((req, res) => {
+    Article.updateOne(
+      {title: req.params.title},
+      {$set: req.body},
+      (err) => {
+        if(!err) {
+          res.send("Succesfully updated")
+        } else {
+          res.send(err);
+        }
       }
     )
   })
