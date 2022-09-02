@@ -59,8 +59,8 @@ app.route('/articles')
 app.route('/articles/:title')
   .get((req, res) => {
     const title = req.params.title;
-    Article.findOne({title}, (err, result) => {
-      if(!err) {
+    Article.findOne({ title }, (err, result) => {
+      if (!err) {
         res.send(result)
       } else {
         res.send(err);
@@ -70,10 +70,10 @@ app.route('/articles/:title')
 
   .put((req, res) => {
     Article.updateOne(
-      {title: req.params.title},
-      {title: req.body.title, content: req.body.content},
+      { title: req.params.title },
+      { title: req.body.title, content: req.body.content },
       (err) => {
-        if(!err) {
+        if (!err) {
           res.send("Succesfully updated")
         } else {
           res.send(err);
@@ -83,16 +83,26 @@ app.route('/articles/:title')
 
   .patch((req, res) => {
     Article.updateOne(
-      {title: req.params.title},
-      {$set: req.body},
+      { title: req.params.title },
+      { $set: req.body },
       (err) => {
-        if(!err) {
+        if (!err) {
           res.send("Succesfully updated")
         } else {
           res.send(err);
         }
       }
     )
+  })
+
+  .delete((req, res) => {
+    Article.deleteOne({ title: req.params.title })
+      .then(() => {
+        res.send("Data deleted"); // Success
+      })
+      .catch( (err) => {
+        res.send(err); // Failure
+      });
   })
 
 let port = process.env.PORT;
